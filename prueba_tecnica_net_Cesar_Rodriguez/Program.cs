@@ -2,6 +2,7 @@ using prueba_tecnica_net_Cesar_Rodriguez.Data;
 using Microsoft.EntityFrameworkCore;
 using prueba_tecnica_net_Cesar_Rodriguez.Services;
 using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext <MbaDbContext> (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHttpClient<ICountry, CountryService>();
+builder.Services.AddScoped<IDao, DaoService>();
+
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.MaxDepth = 64;
+    });
 
 var app = builder.Build();
 

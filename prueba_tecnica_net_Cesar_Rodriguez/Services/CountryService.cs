@@ -1,12 +1,11 @@
 ﻿
-using prueba_tecnica_net_Cesar_Rodriguez.Models;
-using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
-using System.Net.Http;
 using Newtonsoft.Json;
+using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
+using prueba_tecnica_net_Cesar_Rodriguez.Models;
 
 namespace prueba_tecnica_net_Cesar_Rodriguez.Services
 {
-    public class CountryService:ICountry
+    public class CountryService : ICountry
     {
         private readonly HttpClient _httpClient;
 
@@ -23,7 +22,8 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Services
                 var jsonResponse = JsonConvert.DeserializeObject<List<Country>>(response);
                 return jsonResponse;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw new Exception("Error base", ex);
             }
         }

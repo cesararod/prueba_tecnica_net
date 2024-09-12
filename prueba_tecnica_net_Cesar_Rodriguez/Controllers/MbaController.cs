@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using prueba_tecnica_net_Cesar_Rodriguez.Data;
-using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
 using prueba_tecnica_net_Cesar_Rodriguez.Models;
+using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
+using prueba_tecnica_net_Cesar_Rodriguez.Services;
+using prueba_tecnica_net_Cesar_Rodriguez.Data;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
 {
@@ -10,18 +13,21 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
     public class MbaController : Controller
     {
         private readonly ICountry _iCountry;
-        private readonly MbaDbContext _mbaDbContext;
-        public MbaController(ICountry iCountry, MbaDbContext mbaDbContext)
+        private readonly IDao _iDao;
+        public MbaController(ICountry iCountry, IDao iDao)
         {
             _iCountry = iCountry;
-            _mbaDbContext = mbaDbContext;
+            _iDao = iDao;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Country>>> GetMbas()
+        public async Task<ActionResult<List<CountryDAO>>> GetMbas()
         {
             var countries = await _iCountry.GetCountriesAsync();
-            return Ok(countries);
+
+            List<CountryDAO> recordedCountries = await _iDao.RecordCountriesAsync(countries);
+            List<CountryDAO> loadedCountries = await _iDao.LoadedCountriesAsync();
+            return Ok(loadedCountries);
         }
 
 
