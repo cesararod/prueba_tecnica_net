@@ -21,7 +21,7 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CountryDAO>>> GetMbas()
+        public async Task<ActionResult<List<CountryDAO>>> ConsumeMBAOptions()
         {
             var countries = await _iCountry.GetCountriesAsync();
             await _iDao.RecordCountriesAsync(countries);
