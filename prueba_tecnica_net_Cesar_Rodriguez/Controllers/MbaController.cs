@@ -24,16 +24,16 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
         public async Task<ActionResult<List<CountryDAO>>> GetMbas()
         {
             var countries = await _iCountry.GetCountriesAsync();
+            await _iDao.RecordCountriesAsync(countries);
 
-            List<CountryDAO> recordedCountries = await _iDao.RecordCountriesAsync(countries);
-            List<CountryDAO> loadedCountries = await _iDao.LoadedCountriesAsync();
-            return Ok(loadedCountries);
+            return Ok(await _iDao.LoadedCountriesAsync());
         }
 
         [HttpGet ("{id}")]
         public async Task<ActionResult<CountryDAO>> GetCountryByIdAsync(Guid id)
         {
             CountryDAO country = await _iDao.GetCountryByIdAsync(id);
+
             return Ok(country);
         }        
     }
