@@ -1,5 +1,7 @@
 using prueba_tecnica_net_Cesar_Rodriguez.Data;
 using Microsoft.EntityFrameworkCore;
+using prueba_tecnica_net_Cesar_Rodriguez.Services;
+using prueba_tecnica_net_Cesar_Rodriguez.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext <MbaDbContext> (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddHttpClient<ICountry, CountryService>();
 
 var app = builder.Build();
 
