@@ -20,6 +20,10 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
             _iDao = iDao;
         }
 
+        /// <summary>
+        /// Consumes the opendata endpoint and saves it's data.
+        /// </summary>
+        /// <returns>Returns a list of already procesed countries and mba's.</returns>
         [HttpGet]
         [Route("ConsumeMBAOptions")]
         public async Task<ActionResult<List<CountryDAO>>> ConsumeMBAOptions()
@@ -29,7 +33,11 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
 
             return Ok(await _iDao.LoadedCountriesAsync());
         }
-        
+
+        /// <summary>
+        /// Obtains a Country List from the database
+        /// </summary>
+        /// <returns>Returns a list of already procesed countries and mba's.</returns>
         [HttpGet]
         [Route("GetLoadedMbas")]
         public async Task<ActionResult<List<CountryDAO>>> GetLoadedMbas()
@@ -37,6 +45,11 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
            return Ok(await _iDao.LoadedCountriesAsync());
         }
 
+        /// <summary>
+        /// Obtains a Country from the database using the Guid.
+        /// </summary>
+        /// <param name="id">Country Id.</param>
+        /// <returns>Returns CountryDAO object from the database.</returns>
         [HttpGet]
         [Route("GetCountryById/{id}")]
         public async Task<ActionResult<CountryDAO>> GetCountryByIdAsync(Guid id)

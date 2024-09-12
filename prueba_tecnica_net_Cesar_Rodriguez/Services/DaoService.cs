@@ -14,6 +14,10 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Services
             _mbaDbContext = mbaDbContext;
         }
 
+        /// <summary>
+        /// Saves  a list of countries from the api.
+        /// </summary>
+        /// <returns>A CountryDAO List</returns>
         public async Task<List<CountryDAO>> RecordCountriesAsync(List<Country> countries)
         {
             var countriesLoaded = new List<CountryDAO>();
@@ -27,6 +31,10 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Services
             return countriesLoaded;
         }
 
+        /// <summary>
+        /// used to map a country from the consumed API to a DAo object fror saving in the database.
+        /// </summary>
+        /// <returns>A CountryDAO instance</returns>
         private CountryDAO MapDAO(Country country)
         {
             return new CountryDAO
@@ -41,13 +49,21 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Services
             };
         }
 
+        /// <summary>
+        /// used to get the saved countries and mba's from the database.
+        /// </summary>
+        /// <returns>A CountryDAO List</returns>
         public async Task<List<CountryDAO>> LoadedCountriesAsync()
         {
-            var countriesLoaded = await _mbaDbContext.Countries.Include(x => x.Mbas).ToListAsync();
+            return await _mbaDbContext.Countries.Include(x => x.Mbas).ToListAsync();
 
-            return countriesLoaded;
         }
 
+        /// <summary>
+        /// used to get a saved countries and it's mba's from the database filtering by country ID.
+        /// </summary>
+        /// <param name="id">country Id.</param>
+        /// <returns>A CountryDAO instance</returns>
         public async Task<CountryDAO> GetCountryByIdAsync(Guid id)
         {
             var country = await _mbaDbContext.Countries
