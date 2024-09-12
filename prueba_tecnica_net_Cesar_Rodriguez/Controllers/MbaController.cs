@@ -21,6 +21,7 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
         }
 
         [HttpGet]
+        [Route("ConsumeMBAOptions")]
         public async Task<ActionResult<List<CountryDAO>>> ConsumeMBAOptions()
         {
             var countries = await _iCountry.GetCountriesAsync();
@@ -36,7 +37,8 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
            return Ok(await _iDao.LoadedCountriesAsync());
         }
 
-        [HttpGet ("{id}")]
+        [HttpGet]
+        [Route("GetCountryById/{id}")]
         public async Task<ActionResult<CountryDAO>> GetCountryByIdAsync(Guid id)
         {
             CountryDAO country = await _iDao.GetCountryByIdAsync(id);
