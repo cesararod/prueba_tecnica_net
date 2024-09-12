@@ -7,5 +7,6 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Interfaces
     {
         Task<List<CountryDAO>> RecordCountriesAsync(List<Country> countries);
         Task<List<CountryDAO>> LoadedCountriesAsync();
+        Task<CountryDAO> GetCountryByIdAsync(Guid id);
     }
 }

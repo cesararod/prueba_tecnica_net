@@ -30,6 +30,11 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Controllers
             return Ok(loadedCountries);
         }
 
-
+        [HttpGet ("{id}")]
+        public async Task<ActionResult<CountryDAO>> GetCountryByIdAsync(Guid id)
+        {
+            CountryDAO country = await _iDao.GetCountryByIdAsync(id);
+            return Ok(country);
+        }        
     }
 }

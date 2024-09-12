@@ -47,5 +47,14 @@ namespace prueba_tecnica_net_Cesar_Rodriguez.Services
 
             return countriesLoaded;
         }
+
+        public async Task<CountryDAO> GetCountryByIdAsync(Guid id)
+        {
+            var country = await _mbaDbContext.Countries
+                .Include(m => m.Mbas) 
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            return country;
+        }
     }
 }
